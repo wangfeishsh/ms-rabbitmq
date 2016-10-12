@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: usage_message
+
+logging:
+#  level:
+#    org: INFO
+  file: E://logs//myapp.log
+#  path: E://logs
+
+tutorial:
+  client:
+    duration: 10000
