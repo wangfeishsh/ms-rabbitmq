@@ -13,37 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baocy.tu1;
+package com.baocy.delay;
 
-import org.springframework.amqp.core.Queue;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.util.StopWatch;
 
 /**
  * @author Gary Russell
  * @author Scott Deeg
- *
  */
-@Profile({"tut1","hello-world"})
-@Configuration
-public class Tut1Config {
+public class DelayReceiver {
 
-	@Bean
-	public Queue hello() {
-		return new Queue("tut.hello");
-	}
-
-	@Profile({"tut1","hello-world"})
-	@Bean
-	public Tut1Receiver receiver() {
-		return new Tut1Receiver();
-	}
-
-	@Profile({"tut1","hello-world"})
-	@Bean
-	public Tut1Sender sender() {
-		return new Tut1Sender();
-	}
+    @RabbitListener(queues = "my-delay-queue")
+    public void receive(String in) throws InterruptedException {
+        System.out.println("===" + in);
+    }
 
 }
